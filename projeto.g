@@ -1,12 +1,23 @@
-class Projeto extends Parser;
+class ProjetoParser extends Parser;
 
-prog	:	"programa"
-			declara
-			bloco
-			"fimprog"
+prog	:	"programa" declara bloco "fimprog" PONTO
 		;
 
+bloco	:	(cmd)+
+		;
 
+cmd	:	cmdleitura
+		|cmdescrita
+		|cmdexpr
+		|cmdif
+	;
+
+cmdleitura	:	"leia" PAR1 ID PAR2 PONTO
+			;
+			
+cmdescrita	:	"escreva" PAR1 ID PAR2 PONTO
+			;
+	
 cmdif	:	"se"
 			PAR1 expr OP_REL expr PAR2
 			"então"
@@ -43,9 +54,7 @@ cmdexpr	:	ID
 			expr
 		;
 		
-cmd	:	cmdexpr
-		| cmdif
-	;
+
 	
 cmddo	:	"faca" CHAVE1
 			(CMD PONTO)+
@@ -53,9 +62,7 @@ cmddo	:	"faca" CHAVE1
 		;
 		
 	
-bloco	:	(cmd)+
-		;
-		
+
 
 
 declara	:	"declare"
