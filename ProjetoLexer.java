@@ -40,16 +40,18 @@ public ProjetoLexer(LexerSharedInputState state) {
 	caseSensitiveLiterals = true;
 	setCaseSensitive(true);
 	literals = new Hashtable();
-	literals.put(new ANTLRHashString("entao", this), new Integer(15));
+	literals.put(new ANTLRHashString("entao", this), new Integer(19));
 	literals.put(new ANTLRHashString("programa", this), new Integer(4));
-	literals.put(new ANTLRHashString("se", this), new Integer(13));
-	literals.put(new ANTLRHashString("senao", this), new Integer(18));
-	literals.put(new ANTLRHashString("escreva", this), new Integer(11));
-	literals.put(new ANTLRHashString("leia", this), new Integer(7));
-	literals.put(new ANTLRHashString("enquanto", this), new Integer(27));
-	literals.put(new ANTLRHashString("declare", this), new Integer(28));
+	literals.put(new ANTLRHashString("int", this), new Integer(8));
+	literals.put(new ANTLRHashString("se", this), new Integer(17));
+	literals.put(new ANTLRHashString("senao", this), new Integer(22));
+	literals.put(new ANTLRHashString("escreva", this), new Integer(15));
+	literals.put(new ANTLRHashString("leia", this), new Integer(12));
+	literals.put(new ANTLRHashString("enquanto", this), new Integer(31));
+	literals.put(new ANTLRHashString("string", this), new Integer(9));
+	literals.put(new ANTLRHashString("declare", this), new Integer(7));
 	literals.put(new ANTLRHashString("fimprog", this), new Integer(6));
-	literals.put(new ANTLRHashString("faca", this), new Integer(25));
+	literals.put(new ANTLRHashString("faca", this), new Integer(29));
 }
 
 public Token nextToken() throws TokenStreamException {
@@ -196,7 +198,7 @@ tryAgain:
 		matchRange('a','z');
 		}
 		{
-		_loop34:
+		_loop35:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -230,7 +232,7 @@ tryAgain:
 			}
 			default:
 			{
-				break _loop34;
+				break _loop35;
 			}
 			}
 		} while (true);
@@ -408,8 +410,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt48=0;
-		_loop48:
+		int _cnt49=0;
+		_loop49:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -448,10 +450,10 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt48>=1 ) { break _loop48; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt49>=1 ) { break _loop49; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt48++;
+			_cnt49++;
 		} while (true);
 		}
 		match('"');

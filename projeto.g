@@ -2,13 +2,15 @@ class ProjetoParser extends Parser;
 
 {
 	TabelaDeSimbolos ts = new TabelaDeSimbolos();
+	Simbolo s;
+	int dtype;
 }
 
-prog	:	{NumeroLinha.NLINHA=0;}"programa" {System.out.println("Leu programa");}
-		    PONTO {System.out.println("Leu ponto");}
-			declara {System.out.println("Leu declara");}
+prog	:	{NumeroLinha.NLINHA=0;}"programa" 
+		    PONTO 
+			declara 
 			bloco
-			"fimprog" {System.out.println("Leu fimprog");}
+			"fimprog" 
 			PONTO
 		;
 
@@ -21,8 +23,17 @@ cmd	:	(cmdleitura
 		|cmdif)
 	;
 
-declara	:	"declare" {System.out.println("Leu declare");}
-			ID {System.out.println("Leu ID");}
+declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
+			ID {
+				s = new Simbolo(LT(0).getText(), dtype);
+				if(ts.exists(s.getNome()) == false){
+					ts.add(s);
+					System.out.println("add");
+				}else{
+					System.err.println("Variavel já declarada");
+					System.exit(0);
+					}
+				}
 			(VIRGULA ID)*
 			PONTO
 		;
@@ -138,8 +149,3 @@ WS      : (' ' | '\t') {$setType(Token.SKIP);}
 NL      : ('\n' | "\n\r" | "\r\n") {$setType(Token.SKIP); System.out.println("Linha:" + ++NumeroLinha.NLINHA);}
         ;
 
-INTEIRO	:	"int"
-		;
-
-STRING	:	"String"
-		;
