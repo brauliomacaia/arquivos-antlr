@@ -10,7 +10,7 @@ cmdif	:	"se"
 
 fator	:	NUM
 			| ID
-			//| (expr)
+			| PAR1 expr PAR2
 			
 		;
 

@@ -165,6 +165,13 @@ public Projeto(ParserSharedInputState state) {
 				match(ID);
 				break;
 			}
+			case PAR1:
+			{
+				match(PAR1);
+				expr();
+				match(PAR2);
+				break;
+			}
 			default:
 			{
 				throw new NoViableAltException(LT(1), getFilename());
