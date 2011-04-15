@@ -1,0 +1,48 @@
+projeto.g:68:41: no definition of rule mNUMERO
+
+projeto.g: warning:lexical nondeterminism between rules ID and CARACTERES upon
+projeto.g:     k==1:'a'..'z'
+projeto.g:     k==2:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==3:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==4:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==5:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==6:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==7:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==8:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g:     k==9:<end-of-token>,'A'..'Z','a'..'z'
+projeto.g: warning:lexical nondeterminism between rules BAIXO and CARACTERES upo
+n
+projeto.g:     k==1:'a'..'z'
+projeto.g:     k==2:<end-of-token>,'a'..'z'
+projeto.g:     k==3:<end-of-token>,'a'..'z'
+projeto.g:     k==4:<end-of-token>,'a'..'z'
+projeto.g:     k==5:<end-of-token>,'a'..'z'
+projeto.g:     k==6:<end-of-token>,'a'..'z'
+projeto.g:     k==7:<end-of-token>,'a'..'z'
+projeto.g:     k==8:<end-of-token>,'a'..'z'
+projeto.g:     k==9:<end-of-token>,'a'..'z'
+projeto.g: warning:lexical nondeterminism between rules CARACTERES and ALTO upon
+
+projeto.g:     k==1:'A'..'Z'
+projeto.g:     k==2:<end-of-token>,'A'..'Z'
+projeto.g:     k==3:<end-of-token>,'A'..'Z'
+projeto.g:     k==4:<end-of-token>,'A'..'Z'
+projeto.g:     k==5:<end-of-token>,'A'..'Z'
+projeto.g:     k==6:<end-of-token>,'A'..'Z'
+projeto.g:     k==7:<end-of-token>,'A'..'Z'
+projeto.g:     k==8:<end-of-token>,'A'..'Z'
+projeto.g:     k==9:<end-of-token>,'A'..'Z'
+warning: public lexical rule CARACTERES is optional (can match "nothing")
+projeto.g:65: warning:lexical nondeterminism upon
+projeto.g:65:     k==1:<end-of-token>
+projeto.g:65:     k==2:<end-of-token>
+projeto.g:65:     k==3:<end-of-token>
+projeto.g:65:     k==4:<end-of-token>
+projeto.g:65:     k==5:<end-of-token>
+projeto.g:65:     k==6:<end-of-token>
+projeto.g:65:     k==7:<end-of-token>
+projeto.g:65:     k==8:<end-of-token>
+projeto.g:65:     k==9:<end-of-token>
+projeto.g:65:     between alt 1 and exit branch of block
+Exiting due to errors.
+
