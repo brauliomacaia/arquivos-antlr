@@ -1,0 +1,9 @@
+// $ANTLR 2.7.6 (2005-12-22): decl.g -> ExprParserTokenTypes.txt$
+ExprParser    // output token vocab name
+END=4
+FIM=5
+LITERAL_int="int"=6
+LITERAL_float="float"=7
+ID=8
+VIRGULA=9
+WS=10

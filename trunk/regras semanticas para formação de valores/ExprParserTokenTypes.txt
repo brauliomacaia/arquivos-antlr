@@ -1,0 +1,8 @@
+// $ANTLR 2.7.6 (2005-12-22): expr2.g -> ExprParserTokenTypes.txt$
+ExprParser    // output token vocab name
+PLUS=4
+MINUS=5
+FIM=6
+NUM=7
+SUFIXO=8
+WS=9
