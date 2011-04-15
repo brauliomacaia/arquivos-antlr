@@ -10,6 +10,7 @@ cmdif	:	"se"
 
 fator	:	NUM
 			| ID
+			//| (expr)
 			
 		;
 
@@ -58,7 +59,7 @@ declara	:	"declare"
 class ProjetoLexer extends Lexer;
 
 options {
-    k=8; // needed for newline junk
+    k=9; // needed for newline junk
     charVocabulary='\u0000'..'\u007F'; // allow ascii
 }		
 
@@ -96,4 +97,9 @@ OP_REL	:	'<'
 			| ">="
 			| "!="
 			| "=="
+		;
+		
+TEXTO	:	'"'
+			('0'..'9' | 'a'..'z' | 'A'..'Z' | "''")+
+			'"'
 		;

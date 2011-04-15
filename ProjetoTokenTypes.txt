@@ -1,0 +1,21 @@
+// $ANTLR 2.7.6 (2005-12-22): projeto.g -> ProjetoTokenTypes.txt$
+Projeto    // output token vocab name
+LITERAL_se="se"=4
+PAR1=5
+OP_REL=6
+PAR2=7
+LITERAL_então="então"=8
+CHAVE1=9
+CHAVE2=10
+LITERAL_senao="senao"=11
+NUM=12
+ID=13
+VEZES=14
+DIVIDIR=15
+MAIS=16
+MENOS=17
+IGUAL=18
+LITERAL_programa="programa"=19
+LITERAL_fimprog="fimprog"=20
+LITERAL_declare="declare"=21
+TEXTO=22
