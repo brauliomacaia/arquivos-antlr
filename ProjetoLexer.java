@@ -40,12 +40,14 @@ public ProjetoLexer(LexerSharedInputState state) {
 	caseSensitiveLiterals = true;
 	setCaseSensitive(true);
 	literals = new Hashtable();
-	literals.put(new ANTLRHashString("programa", this), new Integer(19));
-	literals.put(new ANTLRHashString("se", this), new Integer(4));
-	literals.put(new ANTLRHashString("senao", this), new Integer(11));
-	literals.put(new ANTLRHashString("declare", this), new Integer(21));
-	literals.put(new ANTLRHashString("fimprog", this), new Integer(20));
-	literals.put(new ANTLRHashString("então", this), new Integer(8));
+	literals.put(new ANTLRHashString("programa", this), new Integer(4));
+	literals.put(new ANTLRHashString("se", this), new Integer(6));
+	literals.put(new ANTLRHashString("senao", this), new Integer(13));
+	literals.put(new ANTLRHashString("enquanto", this), new Integer(24));
+	literals.put(new ANTLRHashString("declare", this), new Integer(25));
+	literals.put(new ANTLRHashString("fimprog", this), new Integer(5));
+	literals.put(new ANTLRHashString("faca", this), new Integer(21));
+	literals.put(new ANTLRHashString("então", this), new Integer(10));
 }
 
 public Token nextToken() throws TokenStreamException {
@@ -58,19 +60,13 @@ tryAgain:
 		try {   // for char stream error handling
 			try {   // for lexical error handling
 				switch ( LA(1)) {
-				case 'A':  case 'B':  case 'C':  case 'D':
-				case 'E':  case 'F':  case 'G':  case 'H':
-				case 'I':  case 'J':  case 'K':  case 'L':
-				case 'M':  case 'N':  case 'O':  case 'P':
-				case 'Q':  case 'R':  case 'S':  case 'T':
-				case 'U':  case 'V':  case 'W':  case 'X':
-				case 'Y':  case 'Z':  case 'a':  case 'b':
-				case 'c':  case 'd':  case 'e':  case 'f':
-				case 'g':  case 'h':  case 'i':  case 'j':
-				case 'k':  case 'l':  case 'm':  case 'n':
-				case 'o':  case 'p':  case 'q':  case 'r':
-				case 's':  case 't':  case 'u':  case 'v':
-				case 'w':  case 'x':  case 'y':  case 'z':
+				case 'a':  case 'b':  case 'c':  case 'd':
+				case 'e':  case 'f':  case 'g':  case 'h':
+				case 'i':  case 'j':  case 'k':  case 'l':
+				case 'm':  case 'n':  case 'o':  case 'p':
+				case 'q':  case 'r':  case 's':  case 't':
+				case 'u':  case 'v':  case 'w':  case 'x':
+				case 'y':  case 'z':
 				{
 					mID(true);
 					theRetToken=_returnToken;
@@ -126,6 +122,12 @@ tryAgain:
 					theRetToken=_returnToken;
 					break;
 				}
+				case ',':
+				{
+					mVIRGULA(true);
+					theRetToken=_returnToken;
+					break;
+				}
 				case '!':  case '<':  case '=':  case '>':
 				{
 					mOP_REL(true);
@@ -135,6 +137,12 @@ tryAgain:
 				case '"':
 				{
 					mTEXTO(true);
+					theRetToken=_returnToken;
+					break;
+				}
+				case '.':
+				{
+					mPONTO(true);
 					theRetToken=_returnToken;
 					break;
 				}
@@ -171,37 +179,10 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		switch ( LA(1)) {
-		case 'a':  case 'b':  case 'c':  case 'd':
-		case 'e':  case 'f':  case 'g':  case 'h':
-		case 'i':  case 'j':  case 'k':  case 'l':
-		case 'm':  case 'n':  case 'o':  case 'p':
-		case 'q':  case 'r':  case 's':  case 't':
-		case 'u':  case 'v':  case 'w':  case 'x':
-		case 'y':  case 'z':
-		{
-			matchRange('a','z');
-			break;
-		}
-		case 'A':  case 'B':  case 'C':  case 'D':
-		case 'E':  case 'F':  case 'G':  case 'H':
-		case 'I':  case 'J':  case 'K':  case 'L':
-		case 'M':  case 'N':  case 'O':  case 'P':
-		case 'Q':  case 'R':  case 'S':  case 'T':
-		case 'U':  case 'V':  case 'W':  case 'X':
-		case 'Y':  case 'Z':
-		{
-			matchRange('A','Z');
-			break;
-		}
-		default:
-		{
-			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());
-		}
-		}
+		matchRange('a','z');
 		}
 		{
-		_loop26:
+		_loop29:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -235,7 +216,7 @@ tryAgain:
 			}
 			default:
 			{
-				break _loop26;
+				break _loop29;
 			}
 			}
 		} while (true);
@@ -292,18 +273,7 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		int _cnt32=0;
-		_loop32:
-		do {
-			if (((LA(1) >= '0' && LA(1) <= '9'))) {
-				matchRange('0','9');
-			}
-			else {
-				if ( _cnt32>=1 ) { break _loop32; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
-			}
-			
-			_cnt32++;
-		} while (true);
+		matchRange('0','9');
 		}
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
@@ -364,6 +334,19 @@ tryAgain:
 		_returnToken = _token;
 	}
 	
+	public final void mVIRGULA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = VIRGULA;
+		int _saveIndex;
+		
+		match(',');
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
 	public final void mOP_REL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
 		int _ttype; Token _token=null; int _begin=text.length();
 		_ttype = OP_REL;
@@ -411,8 +394,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt40=0;
-		_loop40:
+		int _cnt43=0;
+		_loop43:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -451,13 +434,26 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt40>=1 ) { break _loop40; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt43>=1 ) { break _loop43; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt40++;
+			_cnt43++;
 		} while (true);
 		}
 		match('"');
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
+	public final void mPONTO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = PONTO;
+		int _saveIndex;
+		
+		match('.');
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
