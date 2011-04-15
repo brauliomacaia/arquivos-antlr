@@ -10,8 +10,7 @@ cmdif	:	"se"
 
 fator	:	NUM
 			| ID
-			| PAR1 expr PAR2
-			
+			| PAR1 expr PAR2			
 		;
 
 termo_l	:	VEZES termo_l
@@ -63,11 +62,22 @@ options {
     charVocabulary='\u0000'..'\u007F'; // allow ascii
 }		
 
-ID	:	('a'..'z' | 'A'..'Z')('a'..'z' | 'A'..'Z' | '0'..'9')*
+ID	:	BAIXO (CARACTERES)*
 	;
+
+CARACTERES	:	(ALTO | BAIXO | NUMERO)*
+			;	
+			
+BAIXO	: 	('a'..'z')+
+		;
+
+ALTO 	: 	('A'..'Z')+
+		;
+
 	
 IGUAL	: ":="
 		;
+		
 		
 MAIS	:	'+'
 		;

@@ -416,6 +416,9 @@ public Projeto(ParserSharedInputState state) {
 		"\"programa\"",
 		"\"fimprog\"",
 		"\"declare\"",
+		"CARACTERES",
+		"BAIXO",
+		"ALTO",
 		"TEXTO"
 	};
 	
