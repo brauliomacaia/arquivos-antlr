@@ -40,14 +40,16 @@ public ProjetoLexer(LexerSharedInputState state) {
 	caseSensitiveLiterals = true;
 	setCaseSensitive(true);
 	literals = new Hashtable();
+	literals.put(new ANTLRHashString("entao", this), new Integer(15));
 	literals.put(new ANTLRHashString("programa", this), new Integer(4));
-	literals.put(new ANTLRHashString("se", this), new Integer(7));
-	literals.put(new ANTLRHashString("senao", this), new Integer(14));
-	literals.put(new ANTLRHashString("enquanto", this), new Integer(24));
-	literals.put(new ANTLRHashString("declare", this), new Integer(25));
-	literals.put(new ANTLRHashString("fimprog", this), new Integer(5));
-	literals.put(new ANTLRHashString("faca", this), new Integer(22));
-	literals.put(new ANTLRHashString("então", this), new Integer(11));
+	literals.put(new ANTLRHashString("se", this), new Integer(13));
+	literals.put(new ANTLRHashString("senao", this), new Integer(18));
+	literals.put(new ANTLRHashString("escreva", this), new Integer(11));
+	literals.put(new ANTLRHashString("leia", this), new Integer(7));
+	literals.put(new ANTLRHashString("enquanto", this), new Integer(27));
+	literals.put(new ANTLRHashString("declare", this), new Integer(28));
+	literals.put(new ANTLRHashString("fimprog", this), new Integer(6));
+	literals.put(new ANTLRHashString("faca", this), new Integer(25));
 }
 
 public Token nextToken() throws TokenStreamException {
@@ -146,6 +148,18 @@ tryAgain:
 					theRetToken=_returnToken;
 					break;
 				}
+				case '\t':  case ' ':
+				{
+					mWS(true);
+					theRetToken=_returnToken;
+					break;
+				}
+				case '\n':  case '\r':
+				{
+					mNL(true);
+					theRetToken=_returnToken;
+					break;
+				}
 				default:
 				{
 					if (LA(1)==EOF_CHAR) {uponEOF(); _returnToken = makeToken(Token.EOF_TYPE);}
@@ -182,7 +196,7 @@ tryAgain:
 		matchRange('a','z');
 		}
 		{
-		_loop29:
+		_loop34:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -216,7 +230,7 @@ tryAgain:
 			}
 			default:
 			{
-				break _loop29;
+				break _loop34;
 			}
 			}
 		} while (true);
@@ -394,8 +408,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt43=0;
-		_loop43:
+		int _cnt48=0;
+		_loop48:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -434,10 +448,10 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt43>=1 ) { break _loop43; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt48>=1 ) { break _loop48; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt43++;
+			_cnt48++;
 		} while (true);
 		}
 		match('"');
@@ -454,6 +468,65 @@ tryAgain:
 		int _saveIndex;
 		
 		match('.');
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
+	public final void mWS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = WS;
+		int _saveIndex;
+		
+		{
+		switch ( LA(1)) {
+		case ' ':
+		{
+			match(' ');
+			break;
+		}
+		case '\t':
+		{
+			match('\t');
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());
+		}
+		}
+		}
+		_ttype = Token.SKIP;
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
+	public final void mNL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = NL;
+		int _saveIndex;
+		
+		{
+		if ((LA(1)=='\n') && (LA(2)=='\r')) {
+			match("\n\r");
+		}
+		else if ((LA(1)=='\n') && (true)) {
+			match('\n');
+		}
+		else if ((LA(1)=='\r')) {
+			match("\r\n");
+		}
+		else {
+			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());
+		}
+		
+		}
+		_ttype = Token.SKIP; System.out.println("Linha:" + ++NumeroLinha.NLINHA);
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));

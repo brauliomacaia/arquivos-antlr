@@ -1,4 +1,4 @@
-programa
+programa.
 declare a,b,c,d.
 
 leia(a).

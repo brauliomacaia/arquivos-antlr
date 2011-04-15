@@ -44,10 +44,16 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
+			NumeroLinha.NLINHA=0;
 			match(LITERAL_programa);
+			System.out.println("Leu programa");
+			match(PONTO);
+			System.out.println("Leu ponto");
 			declara();
+			System.out.println("Leu declara");
 			bloco();
 			match(LITERAL_fimprog);
+			System.out.println("Leu fimprog");
 			match(PONTO);
 		}
 		catch (RecognitionException ex) {
@@ -61,20 +67,23 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(LITERAL_declare);
+			System.out.println("Leu declare");
 			match(ID);
+			System.out.println("Leu ID");
 			{
-			_loop25:
+			_loop30:
 			do {
 				if ((LA(1)==VIRGULA)) {
 					match(VIRGULA);
 					match(ID);
 				}
 				else {
-					break _loop25;
+					break _loop30;
 				}
 				
 			} while (true);
 			}
+			match(PONTO);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -87,43 +96,10 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			int _cnt22=0;
-			_loop22:
-			do {
-				if ((LA(1)==LITERAL_se||LA(1)==ID)) {
-					cmd();
-				}
-				else {
-					if ( _cnt22>=1 ) { break _loop22; } else {throw new NoViableAltException(LT(1), getFilename());}
-				}
-				
-				_cnt22++;
-			} while (true);
-			}
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_2);
-		}
-	}
-	
-	public final void cmdif() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			match(LITERAL_se);
-			match(PAR1);
-			expr();
-			match(OP_REL);
-			expr();
-			match(PAR2);
-			match(LITERAL_então);
-			match(CHAVE1);
-			{
 			int _cnt4=0;
 			_loop4:
 			do {
-				if ((LA(1)==LITERAL_se||LA(1)==ID)) {
+				if ((_tokenSet_1.member(LA(1)))) {
 					cmd();
 				}
 				else {
@@ -133,60 +109,10 @@ public ProjetoParser(ParserSharedInputState state) {
 				_cnt4++;
 			} while (true);
 			}
-			match(CHAVE2);
-			{
-			switch ( LA(1)) {
-			case LITERAL_senao:
-			{
-				match(LITERAL_senao);
-				match(CHAVE1);
-				{
-				int _cnt7=0;
-				_loop7:
-				do {
-					if ((LA(1)==LITERAL_se||LA(1)==ID)) {
-						cmd();
-					}
-					else {
-						if ( _cnt7>=1 ) { break _loop7; } else {throw new NoViableAltException(LT(1), getFilename());}
-					}
-					
-					_cnt7++;
-				} while (true);
-				}
-				match(CHAVE2);
-				break;
-			}
-			case LITERAL_fimprog:
-			case LITERAL_se:
-			case CHAVE2:
-			case ID:
-			{
-				break;
-			}
-			default:
-			{
-				throw new NoViableAltException(LT(1), getFilename());
-			}
-			}
-			}
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_3);
-		}
-	}
-	
-	public final void expr() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			termo();
-			expr_l();
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_4);
+			recover(ex,_tokenSet_2);
 		}
 	}
 	
@@ -194,7 +120,18 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
+			{
 			switch ( LA(1)) {
+			case LITERAL_leia:
+			{
+				cmdleitura();
+				break;
+			}
+			case LITERAL_escreva:
+			{
+				cmdescrita();
+				break;
+			}
 			case ID:
 			{
 				cmdexpr();
@@ -210,10 +147,237 @@ public ProjetoParser(ParserSharedInputState state) {
 				throw new NoViableAltException(LT(1), getFilename());
 			}
 			}
+			}
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
 			recover(ex,_tokenSet_3);
+		}
+	}
+	
+	public final void cmdleitura() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(LITERAL_leia);
+			match(PAR1);
+			match(ID);
+			match(PAR2);
+			match(PONTO);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_3);
+		}
+	}
+	
+	public final void cmdescrita() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(LITERAL_escreva);
+			match(PAR1);
+			escreve();
+			match(PAR2);
+			match(PONTO);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_3);
+		}
+	}
+	
+	public final void cmdexpr() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(ID);
+			match(IGUAL);
+			expr();
+			match(PONTO);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_3);
+		}
+	}
+	
+	public final void cmdif() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(LITERAL_se);
+			match(PAR1);
+			expr();
+			match(OP_REL);
+			expr();
+			match(PAR2);
+			match(LITERAL_entao);
+			match(CHAVE1);
+			{
+			int _cnt12=0;
+			_loop12:
+			do {
+				if ((_tokenSet_1.member(LA(1)))) {
+					cmd();
+				}
+				else {
+					if ( _cnt12>=1 ) { break _loop12; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt12++;
+			} while (true);
+			}
+			match(CHAVE2);
+			{
+			switch ( LA(1)) {
+			case LITERAL_senao:
+			{
+				match(LITERAL_senao);
+				match(CHAVE1);
+				{
+				int _cnt15=0;
+				_loop15:
+				do {
+					if ((_tokenSet_1.member(LA(1)))) {
+						cmd();
+					}
+					else {
+						if ( _cnt15>=1 ) { break _loop15; } else {throw new NoViableAltException(LT(1), getFilename());}
+					}
+					
+					_cnt15++;
+				} while (true);
+				}
+				match(CHAVE2);
+				break;
+			}
+			case LITERAL_fimprog:
+			case LITERAL_leia:
+			case ID:
+			case LITERAL_escreva:
+			case LITERAL_se:
+			case CHAVE2:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_3);
+		}
+	}
+	
+	public final void escreve() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			switch ( LA(1)) {
+			case ID:
+			{
+				match(ID);
+				break;
+			}
+			case TEXTO:
+			{
+				match(TEXTO);
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_4);
+		}
+	}
+	
+	public final void expr() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			termo();
+			expr_l();
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_5);
+		}
+	}
+	
+	public final void termo() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			fator();
+			termo_l();
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_6);
+		}
+	}
+	
+	public final void expr_l() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			switch ( LA(1)) {
+			case MAIS:
+			{
+				{
+				match(MAIS);
+				termo();
+				expr_l();
+				}
+				break;
+			}
+			case PONTO:
+			case PAR2:
+			case OP_REL:
+			case MENOS:
+			{
+				{
+				switch ( LA(1)) {
+				case MENOS:
+				{
+					match(MENOS);
+					termo();
+					expr_l();
+					break;
+				}
+				case PONTO:
+				case PAR2:
+				case OP_REL:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_5);
 		}
 	}
 	
@@ -247,7 +411,7 @@ public ProjetoParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_7);
 		}
 	}
 	
@@ -262,12 +426,9 @@ public ProjetoParser(ParserSharedInputState state) {
 				termo_l();
 				break;
 			}
-			case LITERAL_fimprog:
-			case LITERAL_se:
-			case OP_REL:
+			case PONTO:
 			case PAR2:
-			case CHAVE2:
-			case ID:
+			case OP_REL:
 			case DIVIDIR:
 			case MAIS:
 			case MENOS:
@@ -280,12 +441,9 @@ public ProjetoParser(ParserSharedInputState state) {
 					termo_l();
 					break;
 				}
-				case LITERAL_fimprog:
-				case LITERAL_se:
-				case OP_REL:
+				case PONTO:
 				case PAR2:
-				case CHAVE2:
-				case ID:
+				case OP_REL:
 				case MAIS:
 				case MENOS:
 				{
@@ -311,89 +469,6 @@ public ProjetoParser(ParserSharedInputState state) {
 		}
 	}
 	
-	public final void termo() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			fator();
-			termo_l();
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_6);
-		}
-	}
-	
-	public final void expr_l() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			switch ( LA(1)) {
-			case MAIS:
-			{
-				match(MAIS);
-				expr_l();
-				break;
-			}
-			case LITERAL_fimprog:
-			case LITERAL_se:
-			case OP_REL:
-			case PAR2:
-			case CHAVE2:
-			case ID:
-			case MENOS:
-			{
-				{
-				switch ( LA(1)) {
-				case MENOS:
-				{
-					match(MENOS);
-					expr_l();
-					break;
-				}
-				case LITERAL_fimprog:
-				case LITERAL_se:
-				case OP_REL:
-				case PAR2:
-				case CHAVE2:
-				case ID:
-				{
-					break;
-				}
-				default:
-				{
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-				}
-				break;
-			}
-			default:
-			{
-				throw new NoViableAltException(LT(1), getFilename());
-			}
-			}
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_4);
-		}
-	}
-	
-	public final void cmdexpr() throws RecognitionException, TokenStreamException {
-		
-		
-		try {      // for error handling
-			match(ID);
-			match(IGUAL);
-			expr();
-		}
-		catch (RecognitionException ex) {
-			reportError(ex);
-			recover(ex,_tokenSet_3);
-		}
-	}
-	
 	public final void cmddo() throws RecognitionException, TokenStreamException {
 		
 		
@@ -401,18 +476,18 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(LITERAL_faca);
 			match(CHAVE1);
 			{
-			int _cnt19=0;
-			_loop19:
+			int _cnt27=0;
+			_loop27:
 			do {
 				if ((LA(1)==CMD)) {
 					match(CMD);
 					match(PONTO);
 				}
 				else {
-					if ( _cnt19>=1 ) { break _loop19; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt27>=1 ) { break _loop27; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt19++;
+				_cnt27++;
 			} while (true);
 			}
 			match(CHAVE2);
@@ -436,29 +511,33 @@ public ProjetoParser(ParserSharedInputState state) {
 		"<2>",
 		"NULL_TREE_LOOKAHEAD",
 		"\"programa\"",
-		"\"fimprog\"",
 		"PONTO",
-		"\"se\"",
+		"\"fimprog\"",
+		"\"leia\"",
 		"PAR1",
-		"OP_REL",
+		"ID",
 		"PAR2",
-		"\"ent\u00e3o\"",
+		"\"escreva\"",
+		"TEXTO",
+		"\"se\"",
+		"OP_REL",
+		"\"entao\"",
 		"CHAVE1",
 		"CHAVE2",
 		"\"senao\"",
+		"IGUAL",
 		"NUM",
-		"ID",
 		"VEZES",
 		"DIVIDIR",
 		"MAIS",
 		"MENOS",
-		"IGUAL",
 		"\"faca\"",
 		"CMD",
 		"\"enquanto\"",
 		"\"declare\"",
 		"VIRGULA",
-		"TEXTO"
+		"WS",
+		"NL"
 	};
 	
 	private static final long[] mk_tokenSet_0() {
@@ -467,34 +546,39 @@ public ProjetoParser(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 65664L, 0L};
+		long[] data = { 10880L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { 32L, 0L};
+		long[] data = { 64L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 73888L, 0L};
+		long[] data = { 142016L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 75424L, 0L};
+		long[] data = { 1024L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 2041504L, 0L};
+		long[] data = { 17440L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 1648288L, 0L};
+		long[] data = { 25183264L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
+	private static final long[] mk_tokenSet_7() {
+		long[] data = { 31474720L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
 	
 	}
