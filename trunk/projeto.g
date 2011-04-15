@@ -1,5 +1,12 @@
 class Projeto extends Parser;
 
+prog	:	"programa"
+			declara
+			bloco
+			"fimprog"
+		;
+
+
 cmdif	:	"se"
 			PAR1 expr OP_REL expr PAR2
 			"então"
@@ -40,19 +47,20 @@ cmd	:	cmdexpr
 		| cmdif
 	;
 	
+cmddo	:	"faca" CHAVE1
+			(CMD PONTO)+
+			CHAVE2 "enquanto" PAR1 expr OP_REL expr PAR2
+		;
+		
+	
 bloco	:	(cmd)+
 		;
 		
 
-prog	:	"programa"
-			declara
-			bloco
-			"fimprog"
-		;
 
 declara	:	"declare"
-			ID
-			(ID)*
+			ID 
+			(VIRGULA ID)*
 		;
 
 class ProjetoLexer extends Lexer;
@@ -62,17 +70,8 @@ options {
     charVocabulary='\u0000'..'\u007F'; // allow ascii
 }		
 
-ID	:	BAIXO (CARACTERES)*
+ID	:	('a'..'z') ('a'..'z'|'A'..'Z'|'0'..'9')*
 	;
-
-CARACTERES	:	(ALTO | BAIXO | NUMERO)*
-			;	
-			
-BAIXO	: 	('a'..'z')+
-		;
-
-ALTO 	: 	('A'..'Z')+
-		;
 
 	
 IGUAL	: ":="
@@ -85,7 +84,7 @@ MAIS	:	'+'
 MENOS	:	'-'
 		;
 		
-NUM	:	('0'..'9')+
+NUM	:	('0'..'9')
 	;
 	
 	
@@ -100,7 +99,8 @@ CHAVE1	:	'{'
 		
 CHAVE2	:	'}'
 		;
-		
+VIRGULA :    ','		
+		;
 OP_REL	:	'<'
 			| '>'
 			| "<="
@@ -112,4 +112,7 @@ OP_REL	:	'<'
 TEXTO	:	'"'
 			('0'..'9' | 'a'..'z' | 'A'..'Z' | "''")+
 			'"'
+		;
+		
+PONTO	:	'.'
 		;
