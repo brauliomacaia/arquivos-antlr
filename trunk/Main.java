@@ -5,9 +5,9 @@ import java.lang.*;
 public class Main {
     public static void main(String[] args) throws Exception {
     	
-        ExprLexer lexer = new ExprLexer(new BufferedReader(new FileReader("prog.txt")));
+        ProjetoLexer lexer = new ProjetoLexer(new BufferedReader(new FileReader("arquivo.txt")));
         
-		ExprParser parser = new ExprParser(lexer);
+		ProjetoParser parser = new ProjetoParser(lexer);
         
         parser.prog();
     }

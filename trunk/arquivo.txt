@@ -1,0 +1,18 @@
+programa
+declare a,b,c,d.
+
+leia(a).
+leia(b).
+
+se (a > b) entao
+{
+   c := a + b.
+   escreva(c).
+}
+senao
+{
+   c := a - b.
+   escreva(c).
+}
+
+fimprog.

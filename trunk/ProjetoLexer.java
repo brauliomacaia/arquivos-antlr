@@ -24,7 +24,7 @@ import antlr.LexerSharedInputState;
 import antlr.collections.impl.BitSet;
 import antlr.SemanticException;
 
-public class ProjetoLexer extends antlr.CharScanner implements ProjetoTokenTypes, TokenStream
+public class ProjetoLexer extends antlr.CharScanner implements ProjetoParserTokenTypes, TokenStream
  {
 public ProjetoLexer(InputStream in) {
 	this(new ByteBuffer(in));
@@ -41,13 +41,13 @@ public ProjetoLexer(LexerSharedInputState state) {
 	setCaseSensitive(true);
 	literals = new Hashtable();
 	literals.put(new ANTLRHashString("programa", this), new Integer(4));
-	literals.put(new ANTLRHashString("se", this), new Integer(6));
-	literals.put(new ANTLRHashString("senao", this), new Integer(13));
+	literals.put(new ANTLRHashString("se", this), new Integer(7));
+	literals.put(new ANTLRHashString("senao", this), new Integer(14));
 	literals.put(new ANTLRHashString("enquanto", this), new Integer(24));
 	literals.put(new ANTLRHashString("declare", this), new Integer(25));
 	literals.put(new ANTLRHashString("fimprog", this), new Integer(5));
-	literals.put(new ANTLRHashString("faca", this), new Integer(21));
-	literals.put(new ANTLRHashString("então", this), new Integer(10));
+	literals.put(new ANTLRHashString("faca", this), new Integer(22));
+	literals.put(new ANTLRHashString("então", this), new Integer(11));
 }
 
 public Token nextToken() throws TokenStreamException {
