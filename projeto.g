@@ -1,31 +1,56 @@
 class ProjetoParser extends Parser;
 
-prog	:	"programa" declara bloco "fimprog" PONTO
+{
+	TabelaDeSimbolos ts = new TabelaDeSimbolos();
+}
+
+prog	:	{NumeroLinha.NLINHA=0;}"programa" {System.out.println("Leu programa");}
+		    PONTO {System.out.println("Leu ponto");}
+			declara {System.out.println("Leu declara");}
+			bloco
+			"fimprog" {System.out.println("Leu fimprog");}
+			PONTO
 		;
 
 bloco	:	(cmd)+
 		;
 
-cmd	:	cmdleitura
+cmd	:	(cmdleitura
 		|cmdescrita
 		|cmdexpr
-		|cmdif
+		|cmdif)
 	;
+
+declara	:	"declare" {System.out.println("Leu declare");}
+			ID {System.out.println("Leu ID");}
+			(VIRGULA ID)*
+			PONTO
+		;
+
 
 cmdleitura	:	"leia" PAR1 ID PAR2 PONTO
 			;
 			
-cmdescrita	:	"escreva" PAR1 ID PAR2 PONTO
+cmdescrita	:	"escreva" PAR1 escreve PAR2 PONTO
 			;
-	
+
+escreve	:	ID | TEXTO
+		;
+
 cmdif	:	"se"
 			PAR1 expr OP_REL expr PAR2
-			"então"
+			"entao"
 			CHAVE1 (cmd)+ CHAVE2
 			("senao"
 			CHAVE1 (cmd)+ CHAVE2)?
 		;
 
+cmdexpr	:	ID IGUAL expr PONTO
+		;
+
+expr	:	termo expr_l
+		;
+		
 fator	:	NUM
 			| ID
 			| PAR1 expr PAR2			
@@ -40,35 +65,16 @@ termo	:	fator
 			termo_l
 		;
 
-expr_l	:	MAIS expr_l
-			| (MENOS expr_l)?
+expr_l	:	(MAIS termo expr_l)
+			| (MENOS termo expr_l)?
 			
 		;
 
-expr	:	termo
-			expr_l
-		;
-
-cmdexpr	:	ID
-			IGUAL
-			expr
-		;
-		
-
-	
 cmddo	:	"faca" CHAVE1
 			(CMD PONTO)+
 			CHAVE2 "enquanto" PAR1 expr OP_REL expr PAR2
 		;
 		
-	
-
-
-
-declara	:	"declare"
-			ID 
-			(VIRGULA ID)*
-		;
 
 class ProjetoLexer extends Lexer;
 
@@ -80,6 +86,7 @@ options {
 ID	:	('a'..'z') ('a'..'z'|'A'..'Z'|'0'..'9')*
 	;
 
+	
 	
 IGUAL	: ":="
 		;
@@ -108,6 +115,7 @@ CHAVE2	:	'}'
 		;
 VIRGULA :    ','		
 		;
+		
 OP_REL	:	'<'
 			| '>'
 			| "<="
@@ -122,4 +130,16 @@ TEXTO	:	'"'
 		;
 		
 PONTO	:	'.'
+		;
+		
+WS      : (' ' | '\t') {$setType(Token.SKIP);}
+        ;
+		
+NL      : ('\n' | "\n\r" | "\r\n") {$setType(Token.SKIP); System.out.println("Linha:" + ++NumeroLinha.NLINHA);}
+        ;
+
+INTEIRO	:	"int"
+		;
+
+STRING	:	"String"
 		;
