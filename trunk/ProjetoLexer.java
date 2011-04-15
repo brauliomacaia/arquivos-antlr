@@ -409,12 +409,10 @@ tryAgain:
 		_ttype = TEXTO;
 		int _saveIndex;
 		
-		{
 		match('"');
-		}
 		{
-		int _cnt41=0;
-		_loop41:
+		int _cnt40=0;
+		_loop40:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -453,15 +451,13 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt41>=1 ) { break _loop41; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt40>=1 ) { break _loop40; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt41++;
+			_cnt40++;
 		} while (true);
 		}
-		{
 		match('"');
-		}
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
