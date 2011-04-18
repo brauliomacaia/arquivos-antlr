@@ -32,7 +32,7 @@ public class TabelaDeSimbolos
 	       Simbolo s = (Simbolo)v.get(i);
 	       System.out.print("ID = "+s.getNome() + " Tipo: ");
 		   if (s.getTipo() == Simbolo.INTEGER) System.out.println("INTEGER");
-		   else System.out.println("REAL");
+		   else System.out.println("STRING");
 	   }
 	}
    

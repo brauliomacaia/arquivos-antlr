@@ -18,6 +18,7 @@ public class ProjetoParser extends antlr.LLkParser       implements ProjetoParse
  {
 
 	TabelaDeSimbolos ts = new TabelaDeSimbolos();
+	TabelaReservada tr = new TabelaReservada();
 	Simbolo s;
 	int dtype;
 
@@ -66,62 +67,75 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
-			match(LITERAL_declare);
 			{
-			switch ( LA(1)) {
-			case LITERAL_int:
-			{
-				match(LITERAL_int);
-				dtype=1;
-				break;
-			}
-			case LITERAL_string:
-			{
-				match(LITERAL_string);
-				dtype=2;
-				break;
-			}
-			default:
-			{
-				throw new NoViableAltException(LT(1), getFilename());
-			}
-			}
-			}
-			match(ID);
-			
-							s = new Simbolo(LT(0).getText(), dtype);
-							if(ts.exists(s.getNome()) == false){
-								ts.add(s);
-								System.out.println("add " + s.getNome());
-							}else{
-								System.err.println("Erro: Variavel já declarada");
-								System.exit(0);
-								}
-							
-			{
-			_loop10:
+			_loop12:
 			do {
-				if ((LA(1)==VIRGULA)) {
-					match(VIRGULA);
+				if ((LA(1)==LITERAL_declare)) {
+					match(LITERAL_declare);
+					{
+					switch ( LA(1)) {
+					case LITERAL_int:
+					{
+						match(LITERAL_int);
+						dtype=1;
+						break;
+					}
+					case LITERAL_string:
+					{
+						match(LITERAL_string);
+						dtype=2;
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(LT(1), getFilename());
+					}
+					}
+					}
 					match(ID);
-					
-											s = new Simbolo(LT(0).getText(), dtype);
-											if(ts.exists(s.getNome()) == false){
-												ts.add(s);
-												System.out.println("add " + s.getNome());
-											}else{
-												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja declarada");
-												System.exit(0);
-												}
-											
+									
+									//s = new Simbolo(LT(0).getText(), dtype);
+									System.out.println("nome da variavel " + s.getNome());
+									if(ts.exists(s.getNome()) == false){
+										ts.add(s);
+										//System.out.println("add " + s.getNome());
+									}else{
+										System.err.println("Erro: Variavel ja' declarada");
+										System.exit(0);
+										}
+									
+					{
+					_loop11:
+					do {
+						if ((LA(1)==VIRGULA)) {
+							match(VIRGULA);
+							match(ID);
+							
+													//s = new Simbolo(LT(0).getText(), dtype);
+													System.out.println("nome da variavel " + s.getNome());
+													if(ts.exists(s.getNome()) == false){
+														ts.add(s);
+														//System.out.println("add " + s.getNome());
+													}else{
+														System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja' declarada");
+														System.exit(0);
+														}
+													
+						}
+						else {
+							break _loop11;
+						}
+						
+					} while (true);
+					}
+					match(PONTO);
 				}
 				else {
-					break _loop10;
+					break _loop12;
 				}
 				
 			} while (true);
 			}
-			match(PONTO);
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -202,7 +216,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(ID);
 			
 											if(!ts.exists(LT(0).getText())){ 
-												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" não declarada");
+												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" nao declarada");
 												System.exit(0);
 											}
 											
@@ -259,17 +273,17 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(LITERAL_entao);
 			match(CHAVE1);
 			{
-			int _cnt16=0;
-			_loop16:
+			int _cnt18=0;
+			_loop18:
 			do {
 				if ((_tokenSet_1.member(LA(1)))) {
 					cmd();
 				}
 				else {
-					if ( _cnt16>=1 ) { break _loop16; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt18>=1 ) { break _loop18; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt16++;
+				_cnt18++;
 			} while (true);
 			}
 			match(CHAVE2);
@@ -280,17 +294,17 @@ public ProjetoParser(ParserSharedInputState state) {
 				match(LITERAL_senao);
 				match(CHAVE1);
 				{
-				int _cnt19=0;
-				_loop19:
+				int _cnt21=0;
+				_loop21:
 				do {
 					if ((_tokenSet_1.member(LA(1)))) {
 						cmd();
 					}
 					else {
-						if ( _cnt19>=1 ) { break _loop19; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt21>=1 ) { break _loop21; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt19++;
+					_cnt21++;
 				} while (true);
 				}
 				match(CHAVE2);
@@ -520,18 +534,18 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(LITERAL_faca);
 			match(CHAVE1);
 			{
-			int _cnt31=0;
-			_loop31:
+			int _cnt33=0;
+			_loop33:
 			do {
 				if ((LA(1)==CMD)) {
 					match(CMD);
 					match(PONTO);
 				}
 				else {
-					if ( _cnt31>=1 ) { break _loop31; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt33>=1 ) { break _loop33; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt31++;
+				_cnt33++;
 			} while (true);
 			}
 			match(CHAVE2);
