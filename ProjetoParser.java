@@ -92,9 +92,9 @@ public ProjetoParser(ParserSharedInputState state) {
 							s = new Simbolo(LT(0).getText(), dtype);
 							if(ts.exists(s.getNome()) == false){
 								ts.add(s);
-								System.out.println("add");
+								System.out.println("add " + s.getNome());
 							}else{
-								System.err.println("Variavel já declarada");
+								System.err.println("Erro: Variavel já declarada");
 								System.exit(0);
 								}
 							
@@ -104,6 +104,16 @@ public ProjetoParser(ParserSharedInputState state) {
 				if ((LA(1)==VIRGULA)) {
 					match(VIRGULA);
 					match(ID);
+					
+											s = new Simbolo(LT(0).getText(), dtype);
+											if(ts.exists(s.getNome()) == false){
+												ts.add(s);
+												System.out.println("add " + s.getNome());
+											}else{
+												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja declarada");
+												System.exit(0);
+												}
+											
 				}
 				else {
 					break _loop10;
@@ -190,6 +200,12 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(LITERAL_leia);
 			match(PAR1);
 			match(ID);
+			
+											if(!ts.exists(LT(0).getText())){ 
+												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" não declarada");
+												System.exit(0);
+											}
+											
 			match(PAR2);
 			match(PONTO);
 		}

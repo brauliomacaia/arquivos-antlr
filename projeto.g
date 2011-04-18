@@ -28,18 +28,35 @@ declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
 				s = new Simbolo(LT(0).getText(), dtype);
 				if(ts.exists(s.getNome()) == false){
 					ts.add(s);
-					System.out.println("add");
+					System.out.println("add " + s.getNome());
 				}else{
-					System.err.println("Variavel já declarada");
+					System.err.println("Erro: Variavel já declarada");
 					System.exit(0);
 					}
 				}
-			(VIRGULA ID)*
+			(VIRGULA ID {
+						s = new Simbolo(LT(0).getText(), dtype);
+						if(ts.exists(s.getNome()) == false){
+							ts.add(s);
+							System.out.println("add " + s.getNome());
+						}else{
+							System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja declarada");
+							System.exit(0);
+							}
+						}
+			)*
 			PONTO
 		;
 
 
-cmdleitura	:	"leia" PAR1 ID PAR2 PONTO
+cmdleitura	:	"leia" PAR1 ID {
+								if(!ts.exists(LT(0).getText())){ 
+									System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" não declarada");
+									System.exit(0);
+								}
+								}								
+								
+				PAR2 PONTO
 			;
 			
 cmdescrita	:	"escreva" PAR1 escreve PAR2 PONTO
