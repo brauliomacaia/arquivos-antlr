@@ -9,7 +9,7 @@ class ProjetoParser extends Parser;
 
 prog	:	{NumeroLinha.NLINHA=0;}"programa" 
 		    PONTO 
-			declara
+			(declara)*
 			bloco
 			"fimprog" 
 			PONTO
@@ -24,11 +24,15 @@ cmd	:	(cmdleitura
 		|cmdif)
 	;
 
-declara	:	("declare" ("int" {dtype=1;}| "string" {dtype=2;})
+declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
 			
 			ID {				
 				s = new Simbolo(LT(0).getText(), dtype);
-				System.out.println("nome da variavel " + s.getNome());
+				//System.out.println("nome da variavel " + s.getNome());
+				if(tr.exists(s.getNome())){
+					System.out.println("Erro: Variavel com nome de palavra reservada");
+					System.exit(0);
+				}
 				if(ts.exists(s.getNome()) == false){
 					ts.add(s);
 					//System.out.println("add " + s.getNome());
@@ -39,7 +43,11 @@ declara	:	("declare" ("int" {dtype=1;}| "string" {dtype=2;})
 				}
 			(VIRGULA ID {
 						s = new Simbolo(LT(0).getText(), dtype);
-						System.out.println("nome da variavel " + s.getNome());
+						//System.out.println("nome da variavel " + s.getNome());
+						if(tr.exists(s.getNome())){
+							System.out.println("Erro: Variavel com nome de palavra reservada");
+							System.exit(0);
+						}
 						if(ts.exists(s.getNome()) == false){
 							ts.add(s);
 							//System.out.println("add " + s.getNome());
@@ -49,7 +57,7 @@ declara	:	("declare" ("int" {dtype=1;}| "string" {dtype=2;})
 							}
 						}
 			)*
-			PONTO)*
+			PONTO
 		;
 
 
@@ -66,7 +74,16 @@ cmdleitura	:	"leia" PAR1 ID {
 cmdescrita	:	"escreva" PAR1 escreve PAR2 PONTO
 			;
 
-escreve	:	ID | TEXTO
+escreve	:	ID 
+			{
+				s = new Simbolo(LT(0).getText(), 0);
+				System.out.prinln(s.getNome());
+			}
+		| TEXTO
+			{
+				s = new Simbolo(LT(0).getText(), 0);
+				System.out.prinln(s.getNome());
+			}
 		;
 
 cmdif	:	"se"
@@ -130,7 +147,7 @@ MAIS	:	'+'
 MENOS	:	'-'
 		;
 		
-NUM	:	('0'..'9')
+NUM	:	('0'..'9') | ('0'..'9')+ VIRGULA ('0'..'9')+
 	;
 	
 	

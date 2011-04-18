@@ -102,6 +102,12 @@ tryAgain:
 					theRetToken=_returnToken;
 					break;
 				}
+				case ',':
+				{
+					mVIRGULA(true);
+					theRetToken=_returnToken;
+					break;
+				}
 				case '(':
 				{
 					mPAR1(true);
@@ -123,12 +129,6 @@ tryAgain:
 				case '}':
 				{
 					mCHAVE2(true);
-					theRetToken=_returnToken;
-					break;
-				}
-				case ',':
-				{
-					mVIRGULA(true);
 					theRetToken=_returnToken;
 					break;
 				}
@@ -237,9 +237,6 @@ tryAgain:
 			}
 		} while (true);
 		}
-		
-					s = new Simbolo(LT(0).getText(), dtype);
-				
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
@@ -291,9 +288,59 @@ tryAgain:
 		_ttype = NUM;
 		int _saveIndex;
 		
-		{
-		matchRange('0','9');
+		if (((LA(1) >= '0' && LA(1) <= '9')) && (_tokenSet_0.member(LA(2)))) {
+			{
+			int _cnt44=0;
+			_loop44:
+			do {
+				if (((LA(1) >= '0' && LA(1) <= '9'))) {
+					matchRange('0','9');
+				}
+				else {
+					if ( _cnt44>=1 ) { break _loop44; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				}
+				
+				_cnt44++;
+			} while (true);
+			}
+			mVIRGULA(false);
+			{
+			int _cnt46=0;
+			_loop46:
+			do {
+				if (((LA(1) >= '0' && LA(1) <= '9'))) {
+					matchRange('0','9');
+				}
+				else {
+					if ( _cnt46>=1 ) { break _loop46; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				}
+				
+				_cnt46++;
+			} while (true);
+			}
 		}
+		else if (((LA(1) >= '0' && LA(1) <= '9')) && (true)) {
+			{
+			matchRange('0','9');
+			}
+		}
+		else {
+			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());
+		}
+		
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
+	public final void mVIRGULA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = VIRGULA;
+		int _saveIndex;
+		
+		match(',');
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
@@ -353,19 +400,6 @@ tryAgain:
 		_returnToken = _token;
 	}
 	
-	public final void mVIRGULA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
-		int _ttype; Token _token=null; int _begin=text.length();
-		_ttype = VIRGULA;
-		int _saveIndex;
-		
-		match(',');
-		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
-			_token = makeToken(_ttype);
-			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
-		}
-		_returnToken = _token;
-	}
-	
 	public final void mOP_REL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
 		int _ttype; Token _token=null; int _begin=text.length();
 		_ttype = OP_REL;
@@ -413,8 +447,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt51=0;
-		_loop51:
+		int _cnt55=0;
+		_loop55:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -453,10 +487,10 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt51>=1 ) { break _loop51; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt55>=1 ) { break _loop55; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt51++;
+			_cnt55++;
 		} while (true);
 		}
 		match('"');
@@ -540,5 +574,10 @@ tryAgain:
 	}
 	
 	
+	private static final long[] mk_tokenSet_0() {
+		long[] data = { 287966493361045504L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	
 	}
