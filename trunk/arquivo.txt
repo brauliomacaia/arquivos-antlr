@@ -1,5 +1,5 @@
 programa.
-declare int a,c,c,d.
+declare int a,b,c,d.
 
 leia(a).
 leia(b).
