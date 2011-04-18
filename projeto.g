@@ -2,13 +2,14 @@ class ProjetoParser extends Parser;
 
 {
 	TabelaDeSimbolos ts = new TabelaDeSimbolos();
+	TabelaReservada tr = new TabelaReservada();
 	Simbolo s;
 	int dtype;
 }
 
 prog	:	{NumeroLinha.NLINHA=0;}"programa" 
 		    PONTO 
-			declara 
+			declara
 			bloco
 			"fimprog" 
 			PONTO
@@ -23,35 +24,38 @@ cmd	:	(cmdleitura
 		|cmdif)
 	;
 
-declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
-			ID {
+declara	:	("declare" ("int" {dtype=1;}| "string" {dtype=2;})
+			
+			ID {				
 				s = new Simbolo(LT(0).getText(), dtype);
+				System.out.println("nome da variavel " + s.getNome());
 				if(ts.exists(s.getNome()) == false){
 					ts.add(s);
-					System.out.println("add " + s.getNome());
+					//System.out.println("add " + s.getNome());
 				}else{
-					System.err.println("Erro: Variavel já declarada");
+					System.err.println("Erro: Variavel ja' declarada");
 					System.exit(0);
 					}
 				}
 			(VIRGULA ID {
 						s = new Simbolo(LT(0).getText(), dtype);
+						System.out.println("nome da variavel " + s.getNome());
 						if(ts.exists(s.getNome()) == false){
 							ts.add(s);
-							System.out.println("add " + s.getNome());
+							//System.out.println("add " + s.getNome());
 						}else{
-							System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja declarada");
+							System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja' declarada");
 							System.exit(0);
 							}
 						}
 			)*
-			PONTO
+			PONTO)*
 		;
 
 
 cmdleitura	:	"leia" PAR1 ID {
 								if(!ts.exists(LT(0).getText())){ 
-									System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" não declarada");
+									System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" nao declarada");
 									System.exit(0);
 								}
 								}								

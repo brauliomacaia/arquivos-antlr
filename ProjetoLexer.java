@@ -198,7 +198,7 @@ tryAgain:
 		matchRange('a','z');
 		}
 		{
-		_loop35:
+		_loop37:
 		do {
 			switch ( LA(1)) {
 			case 'a':  case 'b':  case 'c':  case 'd':
@@ -232,11 +232,14 @@ tryAgain:
 			}
 			default:
 			{
-				break _loop35;
+				break _loop37;
 			}
 			}
 		} while (true);
 		}
+		
+					s = new Simbolo(LT(0).getText(), dtype);
+				
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
 			_token = makeToken(_ttype);
 			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
@@ -410,8 +413,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt49=0;
-		_loop49:
+		int _cnt51=0;
+		_loop51:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -450,10 +453,10 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt49>=1 ) { break _loop49; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt51>=1 ) { break _loop51; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt49++;
+			_cnt51++;
 		} while (true);
 		}
 		match('"');
