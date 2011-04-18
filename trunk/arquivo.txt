@@ -1,12 +1,14 @@
 programa.
-declare int a, int, b, c.
+declare int a, b, c.
+declare int d.
+
 
 leia(a).
 leia(b).
 
 se (a > b) entao
 {
-   c := a + b.
+   c := 9,3.
    escreva(c).
 }
 senao

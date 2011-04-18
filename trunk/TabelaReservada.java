@@ -1,6 +1,6 @@
 public class TabelaReservada
 {
-	String palavrasReservadas[] = {"int", "String"};
+	String palavrasReservadas[] = {"declara", "fimprog", "se", "entao", "senao", "faca", "enquanto"};
 	
 	public boolean exists(String str){
 		for(String s : palavrasReservadas){
