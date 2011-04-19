@@ -19,6 +19,7 @@ public class ProjetoParser extends antlr.LLkParser       implements ProjetoParse
 
 	TabelaDeSimbolos ts = new TabelaDeSimbolos();
 	TabelaReservada tr = new TabelaReservada();
+	GeradorCodigo gc = new GeradorCodigo();
 	Simbolo s;
 	Simbolo id1 = null;
 	Simbolo id2;
@@ -53,7 +54,13 @@ public ProjetoParser(ParserSharedInputState state) {
 		try {      // for error handling
 			NumeroLinha.NLINHA=0;
 			match(LITERAL_programa);
+			
+							gc.add("programa");
+						
 			match(NOME);
+			
+							gc.add(LT(0).getText() + " { \nScanner _xretf = new Scanner(System.in);\n");
+						
 			match(PONTO);
 			{
 			_loop3:
@@ -70,6 +77,9 @@ public ProjetoParser(ParserSharedInputState state) {
 			bloco();
 			match(LITERAL_fimprog);
 			match(PONTO);
+			
+							gc.gerarCodigo();
+						
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -87,13 +97,13 @@ public ProjetoParser(ParserSharedInputState state) {
 			case LITERAL_int:
 			{
 				match(LITERAL_int);
-				dtype=1;
+				dtype=1; gc.add(LT(0).getText());
 				break;
 			}
 			case LITERAL_string:
 			{
 				match(LITERAL_string);
-				dtype=2;
+				dtype=2; gc.add(LT(0).getText());
 				break;
 			}
 			default:
@@ -105,6 +115,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(ID);
 							
 							s = new Simbolo(LT(0).getText(), dtype);
+							gc.add(s.getNome());
 							if(tr.exists(s.getNome())){
 								System.err.println("Erro: Variavel com nome de palavra reservada");
 								System.exit(0);
@@ -121,20 +132,22 @@ public ProjetoParser(ParserSharedInputState state) {
 			do {
 				if ((LA(1)==VIRGULA)) {
 					match(VIRGULA);
+					gc.add(LT(0).getText() + " ");
 					match(ID);
 					
-											s = new Simbolo(LT(0).getText(), dtype);
-											if(tr.exists(s.getNome())){
-												System.err.println("Erro: Variavel com nome de palavra reservada");
-												System.exit(0);
-											}
-											if(ts.exists(s.getNome()) == false){
-												ts.add(s);
-											}else{
-												System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
-												System.exit(0);
-												}
-											
+									s = new Simbolo(LT(0).getText(), dtype);
+									gc.add(s.getNome());
+									if(tr.exists(s.getNome())){
+										System.err.println("Erro: Variavel com nome de palavra reservada");
+										System.exit(0);
+									}
+									if(ts.exists(s.getNome()) == false){
+										ts.add(s);
+									}else{
+										System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
+										System.exit(0);
+										}
+									
 				}
 				else {
 					break _loop12;
@@ -143,6 +156,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			} while (true);
 			}
 			match(PONTO);
+			gc.add(LT(0).getText());
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -232,11 +246,18 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(PAR1);
 			match(ID);
 			
-											if(!ts.exists(LT(0).getText())){ 
-												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" nao declarada");
-												System.exit(0);
-											}
-											
+										gc.add(LT(0).getText());
+										if(!ts.exists(LT(0).getText())){ 
+											System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" nao declarada");
+											System.exit(0);
+										}
+										s = ts.busca(LT(0).getText());
+										if(s.getTipo() == 1){
+											gc.add(" = _xretf.nextInt();\n");
+										}else{
+											gc.add(" = _xretf.next();\n");
+										}
+									
 			match(PAR2);
 			match(PONTO);
 		}
@@ -251,10 +272,14 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(LITERAL_escreva);
+			gc.add(LT(0).getText());
 			match(PAR1);
+			gc.add(LT(0).getText());
 			escreve();
 			match(PAR2);
+			gc.add(LT(0).getText());
 			match(PONTO);
+			gc.add(LT(0).getText());
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -267,9 +292,12 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(ID);
+			gc.add(LT(0).getText());
 			match(IGUAL);
+			gc.add(LT(0).getText());
 			expr();
 			match(PONTO);
+			gc.add(LT(0).getText());
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -282,13 +310,18 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(LITERAL_se);
+			gc.add(LT(0).getText());
 			match(PAR1);
+			gc.add(LT(0).getText());
 			expr();
 			match(OP_REL);
+			gc.add(LT(0).getText());
 			expr();
 			match(PAR2);
+			gc.add(LT(0).getText() + "\n");
 			match(LITERAL_entao);
 			match(CHAVE1);
+			gc.add(LT(0).getText()+ "\n");
 			{
 			int _cnt18=0;
 			_loop18:
@@ -304,12 +337,15 @@ public ProjetoParser(ParserSharedInputState state) {
 			} while (true);
 			}
 			match(CHAVE2);
+			gc.add(LT(0).getText());
 			{
 			switch ( LA(1)) {
 			case LITERAL_senao:
 			{
 				match(LITERAL_senao);
+				gc.add(LT(0).getText());
 				match(CHAVE1);
+				gc.add(LT(0).getText()+"\n");
 				{
 				int _cnt21=0;
 				_loop21:
@@ -325,6 +361,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				} while (true);
 				}
 				match(CHAVE2);
+				gc.add(LT(0).getText());
 				break;
 			}
 			case LITERAL_fimprog:
@@ -356,7 +393,9 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(LITERAL_faca);
+			gc.add(LT(0).getText());
 			match(CHAVE1);
+			gc.add(LT(0).getText()+"\n");
 			{
 			int _cnt33=0;
 			_loop33:
@@ -372,12 +411,18 @@ public ProjetoParser(ParserSharedInputState state) {
 			} while (true);
 			}
 			match(CHAVE2);
+			gc.add(LT(0).getText());
 			match(LITERAL_enquanto);
+			gc.add(LT(0).getText());
 			match(PAR1);
+			gc.add(LT(0).getText());
 			expr();
 			match(OP_REL);
+			gc.add(LT(0).getText());
 			expr();
+			gc.add(LT(0).getText());
 			match(PAR2);
+			gc.add(LT(0).getText());
 			match(PONTO);
 		}
 		catch (RecognitionException ex) {
@@ -391,12 +436,17 @@ public ProjetoParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			match(LITERAL_enquanto);
+			gc.add(LT(0).getText());
 			match(PAR1);
+			gc.add(LT(0).getText());
 			expr();
 			match(OP_REL);
+			gc.add(LT(0).getText());
 			expr();
 			match(PAR2);
+			gc.add(LT(0).getText() + "\n");
 			match(CHAVE1);
+			gc.add(LT(0).getText());
 			{
 			int _cnt36=0;
 			_loop36:
@@ -412,6 +462,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			} while (true);
 			}
 			match(CHAVE2);
+			gc.add(LT(0).getText());
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -427,9 +478,8 @@ public ProjetoParser(ParserSharedInputState state) {
 			case ID:
 			{
 				match(ID);
-				
-								s = new Simbolo(LT(0).getText(), 2);
-								System.out.println(s.getNome());
+								
+								gc.add(LT(0).getText());				
 							
 				break;
 			}
@@ -437,8 +487,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			{
 				match(TEXTO);
 				
-								s = new Simbolo(LT(0).getText(), 2);
-								System.out.println(s.getNome());
+								gc.add(LT(0).getText());				
 							
 				break;
 			}
@@ -489,6 +538,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			{
 				{
 				match(MAIS);
+				gc.add(LT(0).getText());
 				termo();
 				expr_l();
 				}
@@ -504,6 +554,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				case MENOS:
 				{
 					match(MENOS);
+					gc.add(LT(0).getText());
 					termo();
 					expr_l();
 					break;
@@ -542,16 +593,20 @@ public ProjetoParser(ParserSharedInputState state) {
 			case NUM:
 			{
 				match(NUM);
+				gc.add(LT(0).getText());
 				break;
 			}
 			case ID:
 			{
 				match(ID);
 				
+								
 								if(id1 == null){
+									gc.add(LT(0).getText());
 									String nome = (LT(0).getText());
 									id1 = ts.busca(nome);
 								}else{
+									gc.add(LT(0).getText());
 									String nome = LT(0).getText();
 									id2 = ts.busca(nome);
 									if(id1.getTipo() != id2.getTipo()){
@@ -589,6 +644,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			case VEZES:
 			{
 				match(VEZES);
+				gc.add(LT(0).getText());
 				termo_l();
 				break;
 			}
@@ -604,6 +660,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				case DIVIDIR:
 				{
 					match(DIVIDIR);
+					gc.add(LT(0).getText());
 					termo_l();
 					break;
 				}
