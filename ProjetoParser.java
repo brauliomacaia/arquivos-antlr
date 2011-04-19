@@ -59,7 +59,7 @@ public ProjetoParser(ParserSharedInputState state) {
 						
 			match(NOME);
 			
-							gc.add(LT(0).getText() + " { \nScanner _xretf = new Scanner(System.in);\n");
+							gc.add(LT(0).getText() + " { \npublic static void main(String args[]){\nScanner _xretf = new Scanner(System.in);\n");
 						
 			match(PONTO);
 			{
@@ -76,6 +76,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			}
 			bloco();
 			match(LITERAL_fimprog);
+			gc.add(LT(0).getText());
 			match(PONTO);
 			
 							gc.gerarCodigo();
@@ -361,7 +362,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				} while (true);
 				}
 				match(CHAVE2);
-				gc.add(LT(0).getText());
+				gc.add(LT(0).getText() + "\n");
 				break;
 			}
 			case LITERAL_fimprog:
@@ -420,9 +421,8 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(OP_REL);
 			gc.add(LT(0).getText());
 			expr();
-			gc.add(LT(0).getText());
 			match(PAR2);
-			gc.add(LT(0).getText());
+			gc.add(LT(0).getText() + "\n");
 			match(PONTO);
 		}
 		catch (RecognitionException ex) {
@@ -446,7 +446,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(PAR2);
 			gc.add(LT(0).getText() + "\n");
 			match(CHAVE1);
-			gc.add(LT(0).getText());
+			gc.add(LT(0).getText() + "\n");
 			{
 			int _cnt36=0;
 			_loop36:

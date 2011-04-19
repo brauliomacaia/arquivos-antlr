@@ -54,7 +54,9 @@ public class GeradorCodigo{
 		}else if(token.equals("faca")){
 			CodigoJava.add(index, "do");
 		}else if(token.equals("enquanto")){
-			CodigoJava.add(index, "\nwhile");
+			CodigoJava.add(index, "while");
+		}else if(token.equals("fimprog")){
+			CodigoJava.add(index, "\n}\n}");
 		}		
 		else{
 			CodigoJava.add(index, token);
@@ -62,9 +64,9 @@ public class GeradorCodigo{
     }
 
     public void imprime() throws IOException{
-        fwriter = new FileWriter(new File("CodigoJava.txt"),true);
+        fwriter = new FileWriter(new File("CODIGOJAVA.txt"),true);
         buffer = new BufferedWriter(fwriter);  
-        
+        buffer.write("import java.util.Scanner;\n");
         for(int i = 0; i < CodigoJava.size(); i++){
 			buffer.write(CodigoJava.get(i));
 		}
