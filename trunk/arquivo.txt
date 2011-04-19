@@ -2,7 +2,6 @@ programa.
 declare int a, b, c.
 declare int d.
 
-
 leia(a).
 leia(b).
 
