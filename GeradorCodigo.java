@@ -12,11 +12,15 @@ public class GeradorCodigo{
     ArrayList<String> CodigoJava;
     FileWriter fwriter;
     BufferedWriter buffer;
+	String nome_do_arquivo;
 
     public GeradorCodigo(){
         al = new ArrayList<String>();
         CodigoJava = new ArrayList<String>();
     }
+	public void setNomeDoArquivo(String nome){
+		this.nome_do_arquivo = nome;
+	}
 
     public void add(String s){
         al.add(s);
@@ -64,7 +68,7 @@ public class GeradorCodigo{
     }
 
     public void imprime() throws IOException{
-        fwriter = new FileWriter(new File("CODIGOJAVA.txt"),true);
+        fwriter = new FileWriter(new File(nome_do_arquivo + ".txt"),true);
         buffer = new BufferedWriter(fwriter);  
         buffer.write("import java.util.Scanner;\n");
         for(int i = 0; i < CodigoJava.size(); i++){
