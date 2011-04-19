@@ -4,6 +4,8 @@ class ProjetoParser extends Parser;
 	TabelaDeSimbolos ts = new TabelaDeSimbolos();
 	TabelaReservada tr = new TabelaReservada();
 	Simbolo s;
+	Simbolo id1 = null;
+	Simbolo id2;
 	int dtype;
 }
 
@@ -21,7 +23,9 @@ bloco	:	(cmd)+
 cmd	:	(cmdleitura
 		|cmdescrita
 		|cmdexpr
-		|cmdif)
+		|cmdif
+		|cmddo
+		|cmdwhile)
 	;
 
 declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
@@ -100,8 +104,32 @@ cmdexpr	:	ID IGUAL expr PONTO
 expr	:	termo expr_l
 		;
 		
-fator	:	NUM
+fator	:	NUM 
+			{
+				if(id1 == null){
+					String nome = (LT(0).getText());
+					id1 = ts.busca(nome);
+				}else{
+					String nome = LT(0).getText();
+					id2 = ts.busca(nome);
+					if(id1.getTipo() != id2.getTipo())
+						System.out.println("Variaveis de tipos diferentes");
+						System.exit(0);
+				}
+			}
 			| ID
+			{
+				if(id1 == null){
+					String nome = (LT(0).getText());
+					id1 = ts.busca(nome);
+				}else{
+					String nome = LT(0).getText();
+					id2 = ts.busca(nome);
+					if(id1.getTipo() != id2.getTipo())
+						System.out.println("Variaveis de tipos diferentes");
+						System.exit(0);
+				}
+			}
 			| PAR1 expr PAR2			
 		;
 
@@ -120,14 +148,14 @@ expr_l	:	(MAIS termo expr_l)
 		;
 
 cmddo	:	"faca" CHAVE1
-			(CMD PONTO)+
-			CHAVE2 "enquanto" PAR1 expr OP_REL expr PAR2
+			(cmd)+
+			CHAVE2 "enquanto" PAR1 expr OP_REL expr PAR2 PONTO
 		;
 		
 		
-cmdwhile	:	"enquanto" PAR1 expr OP_REL expr Par2
+cmdwhile	:	"enquanto" PAR1 expr OP_REL expr PAR2
 				CHAVE1
-					(CMD PONTO)+
+					(cmd)+
 				CHAVE2
 			;
 		
@@ -154,7 +182,7 @@ MAIS	:	'+'
 MENOS	:	'-'
 		;
 		
-NUM	:	('0'..'9') | ('0'..'9')+ VIRGULA ('0'..'9')+
+NUM	:	('0'..'9')+
 	;
 	
 	

@@ -24,6 +24,18 @@ public class TabelaDeSimbolos
 		}
 		return false;
 	}
+
+		public Simbolo busca(String str)
+	{
+	    for (int i=0;i<v.size();i++)
+		{
+		    Simbolo s = (Simbolo)v.get(i);
+			if (str.equals(s.getNome()))
+			   return s;
+		}
+		return null;
+	}
+
 	
 	public void printAll()
 	{
