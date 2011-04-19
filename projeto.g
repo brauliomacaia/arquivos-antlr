@@ -105,18 +105,6 @@ expr	:	termo expr_l
 		;
 		
 fator	:	NUM 
-			{
-				if(id1 == null){
-					String nome = (LT(0).getText());
-					id1 = ts.busca(nome);
-				}else{
-					String nome = LT(0).getText();
-					id2 = ts.busca(nome);
-					if(id1.getTipo() != id2.getTipo())
-						System.out.println("Variaveis de tipos diferentes");
-						System.exit(0);
-				}
-			}
 			| ID
 			{
 				if(id1 == null){
@@ -125,9 +113,10 @@ fator	:	NUM
 				}else{
 					String nome = LT(0).getText();
 					id2 = ts.busca(nome);
-					if(id1.getTipo() != id2.getTipo())
+					if(id1.getTipo() != id2.getTipo()){
 						System.out.println("Variaveis de tipos diferentes");
 						System.exit(0);
+					}
 				}
 			}
 			| PAR1 expr PAR2			
