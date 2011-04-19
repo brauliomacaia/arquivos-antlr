@@ -40,18 +40,18 @@ public ProjetoLexer(LexerSharedInputState state) {
 	caseSensitiveLiterals = true;
 	setCaseSensitive(true);
 	literals = new Hashtable();
-	literals.put(new ANTLRHashString("entao", this), new Integer(19));
+	literals.put(new ANTLRHashString("entao", this), new Integer(20));
 	literals.put(new ANTLRHashString("programa", this), new Integer(4));
-	literals.put(new ANTLRHashString("int", this), new Integer(8));
-	literals.put(new ANTLRHashString("se", this), new Integer(17));
-	literals.put(new ANTLRHashString("senao", this), new Integer(22));
-	literals.put(new ANTLRHashString("escreva", this), new Integer(15));
-	literals.put(new ANTLRHashString("leia", this), new Integer(12));
-	literals.put(new ANTLRHashString("enquanto", this), new Integer(30));
-	literals.put(new ANTLRHashString("string", this), new Integer(9));
-	literals.put(new ANTLRHashString("declare", this), new Integer(7));
-	literals.put(new ANTLRHashString("fimprog", this), new Integer(6));
-	literals.put(new ANTLRHashString("faca", this), new Integer(29));
+	literals.put(new ANTLRHashString("int", this), new Integer(9));
+	literals.put(new ANTLRHashString("se", this), new Integer(18));
+	literals.put(new ANTLRHashString("senao", this), new Integer(23));
+	literals.put(new ANTLRHashString("escreva", this), new Integer(16));
+	literals.put(new ANTLRHashString("leia", this), new Integer(13));
+	literals.put(new ANTLRHashString("enquanto", this), new Integer(31));
+	literals.put(new ANTLRHashString("string", this), new Integer(10));
+	literals.put(new ANTLRHashString("declare", this), new Integer(8));
+	literals.put(new ANTLRHashString("fimprog", this), new Integer(7));
+	literals.put(new ANTLRHashString("faca", this), new Integer(30));
 }
 
 public Token nextToken() throws TokenStreamException {
@@ -163,10 +163,10 @@ tryAgain:
 					break;
 				}
 				default:
-				{
-					if (LA(1)==EOF_CHAR) {uponEOF(); _returnToken = makeToken(Token.EOF_TYPE);}
-				else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
-				}
+					{
+						mNOME(true);
+						theRetToken=_returnToken;
+					}
 				}
 				if ( _returnToken==null ) continue tryAgain; // found SKIP token
 				_ttype = _returnToken.getType();
@@ -244,6 +244,30 @@ tryAgain:
 		_returnToken = _token;
 	}
 	
+	public final void mNOME(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+		int _ttype; Token _token=null; int _begin=text.length();
+		_ttype = NOME;
+		int _saveIndex;
+		
+		{
+		_loop43:
+		do {
+			if (((LA(1) >= 'A' && LA(1) <= 'Z'))) {
+				matchRange('A','Z');
+			}
+			else {
+				break _loop43;
+			}
+			
+		} while (true);
+		}
+		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
+			_token = makeToken(_ttype);
+			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));
+		}
+		_returnToken = _token;
+	}
+	
 	public final void mIGUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
 		int _ttype; Token _token=null; int _begin=text.length();
 		_ttype = IGUAL;
@@ -289,17 +313,17 @@ tryAgain:
 		int _saveIndex;
 		
 		{
-		int _cnt46=0;
-		_loop46:
+		int _cnt49=0;
+		_loop49:
 		do {
 			if (((LA(1) >= '0' && LA(1) <= '9'))) {
 				matchRange('0','9');
 			}
 			else {
-				if ( _cnt46>=1 ) { break _loop46; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt49>=1 ) { break _loop49; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			
-			_cnt46++;
+			_cnt49++;
 		} while (true);
 		}
 		if ( _createToken && _token==null && _ttype!=Token.SKIP ) {
@@ -421,8 +445,8 @@ tryAgain:
 		
 		match('"');
 		{
-		int _cnt55=0;
-		_loop55:
+		int _cnt58=0;
+		_loop58:
 		do {
 			switch ( LA(1)) {
 			case '0':  case '1':  case '2':  case '3':
@@ -461,10 +485,10 @@ tryAgain:
 			}
 			default:
 			{
-				if ( _cnt55>=1 ) { break _loop55; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
+				if ( _cnt58>=1 ) { break _loop58; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}
 			}
 			}
-			_cnt55++;
+			_cnt58++;
 		} while (true);
 		}
 		match('"');

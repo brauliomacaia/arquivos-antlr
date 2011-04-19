@@ -5,6 +5,8 @@ public class Simbolo
    
    private String nome;
    private int    tipo;
+   int valorInt = 0;
+   String valorStr = null;
    
    public Simbolo()
    {
@@ -24,6 +26,18 @@ public class Simbolo
    public void setTipo(int tipo)
    {
       this.tipo = tipo;
+   }
+   public void setValor(int valor){
+		this.valorInt = valor;
+   }
+   public void setValor(String valor){
+		this.valorStr = valor;
+   }
+   public int getValorInt(){
+		return valorInt;
+   }
+   public String getValorStr(){
+		return valorStr;
    }
    
    public String getNome() {return nome;}

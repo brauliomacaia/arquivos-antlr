@@ -1,4 +1,4 @@
-programa.
+programa TESTE.
 declare int a, b, c.
 declare string r.
 
@@ -12,7 +12,7 @@ se (a > b) entao
 }
 senao
 {
-   c := a - r.
+   c := a - b.
    escreva(c).
 }
 

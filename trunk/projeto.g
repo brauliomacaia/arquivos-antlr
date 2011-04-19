@@ -9,54 +9,50 @@ class ProjetoParser extends Parser;
 	int dtype;
 }
 
-prog	:	{NumeroLinha.NLINHA=0;}"programa" 
+prog	:	{NumeroLinha.NLINHA=0;}"programa" NOME
 		    PONTO 
 			(declara)*
 			bloco
 			"fimprog" 
-			PONTO
+			PONTO{}
 		;
 
 bloco	:	(cmd)+
 		;
 
 cmd	:	(cmdleitura
-		|cmdescrita
-		|cmdexpr
-		|cmdif
-		|cmddo
-		|cmdwhile)
+		| cmdescrita
+		| cmdexpr
+		| cmdif
+		| cmddo
+		| cmdwhile)
 	;
 
 declara	:	"declare" ("int" {dtype=1;}| "string" {dtype=2;})
 			
 			ID {				
 				s = new Simbolo(LT(0).getText(), dtype);
-				//System.out.println("nome da variavel " + s.getNome());
 				if(tr.exists(s.getNome())){
-					System.out.println("Erro: Variavel com nome de palavra reservada");
+					System.err.println("Erro: Variavel com nome de palavra reservada");
 					System.exit(0);
 				}
 				if(ts.exists(s.getNome()) == false){
 					ts.add(s);
-					//System.out.println("add " + s.getNome());
 				}else{
-					System.err.println("Erro: Variavel ja' declarada");
+					System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
 					System.exit(0);
-					}
 				}
+			}
 			(VIRGULA ID {
 						s = new Simbolo(LT(0).getText(), dtype);
-						//System.out.println("nome da variavel " + s.getNome());
 						if(tr.exists(s.getNome())){
-							System.out.println("Erro: Variavel com nome de palavra reservada");
+							System.err.println("Erro: Variavel com nome de palavra reservada");
 							System.exit(0);
 						}
 						if(ts.exists(s.getNome()) == false){
 							ts.add(s);
-							//System.out.println("add " + s.getNome());
 						}else{
-							System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja' declarada");
+							System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
 							System.exit(0);
 							}
 						}
@@ -80,12 +76,12 @@ cmdescrita	:	"escreva" PAR1 escreve PAR2 PONTO
 
 escreve	:	ID 
 			{
-				s = new Simbolo(LT(0).getText(), 0);
+				s = new Simbolo(LT(0).getText(), 2);
 				System.out.println(s.getNome());
 			}
 		| TEXTO
 			{
-				s = new Simbolo(LT(0).getText(), 0);
+				s = new Simbolo(LT(0).getText(), 2);
 				System.out.println(s.getNome());
 			}
 		;
@@ -159,7 +155,8 @@ options {
 ID	:	('a'..'z') ('a'..'z'|'A'..'Z'|'0'..'9')*
 	;
 
-	
+NOME	:	('A'..'Z')*
+		;
 	
 IGUAL	: ":="
 		;

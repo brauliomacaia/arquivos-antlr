@@ -53,6 +53,7 @@ public ProjetoParser(ParserSharedInputState state) {
 		try {      // for error handling
 			NumeroLinha.NLINHA=0;
 			match(LITERAL_programa);
+			match(NOME);
 			match(PONTO);
 			{
 			_loop3:
@@ -104,19 +105,17 @@ public ProjetoParser(ParserSharedInputState state) {
 			match(ID);
 							
 							s = new Simbolo(LT(0).getText(), dtype);
-							//System.out.println("nome da variavel " + s.getNome());
 							if(tr.exists(s.getNome())){
-								System.out.println("Erro: Variavel com nome de palavra reservada");
+								System.err.println("Erro: Variavel com nome de palavra reservada");
 								System.exit(0);
 							}
 							if(ts.exists(s.getNome()) == false){
 								ts.add(s);
-								//System.out.println("add " + s.getNome());
 							}else{
-								System.err.println("Erro: Variavel ja' declarada");
+								System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
 								System.exit(0);
-								}
-							
+							}
+						
 			{
 			_loop12:
 			do {
@@ -125,16 +124,14 @@ public ProjetoParser(ParserSharedInputState state) {
 					match(ID);
 					
 											s = new Simbolo(LT(0).getText(), dtype);
-											//System.out.println("nome da variavel " + s.getNome());
 											if(tr.exists(s.getNome())){
-												System.out.println("Erro: Variavel com nome de palavra reservada");
+												System.err.println("Erro: Variavel com nome de palavra reservada");
 												System.exit(0);
 											}
 											if(ts.exists(s.getNome()) == false){
 												ts.add(s);
-												//System.out.println("add " + s.getNome());
 											}else{
-												System.err.println("Erro: Variavel \"" + LT(0).getText() + "\" ja' declarada");
+												System.err.println("Erro: Variavel \"" + s.getNome() + "\" ja' declarada");
 												System.exit(0);
 												}
 											
@@ -431,7 +428,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			{
 				match(ID);
 				
-								s = new Simbolo(LT(0).getText(), 0);
+								s = new Simbolo(LT(0).getText(), 2);
 								System.out.println(s.getNome());
 							
 				break;
@@ -440,7 +437,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			{
 				match(TEXTO);
 				
-								s = new Simbolo(LT(0).getText(), 0);
+								s = new Simbolo(LT(0).getText(), 2);
 								System.out.println(s.getNome());
 							
 				break;
@@ -645,6 +642,7 @@ public ProjetoParser(ParserSharedInputState state) {
 		"<2>",
 		"NULL_TREE_LOOKAHEAD",
 		"\"programa\"",
+		"NOME",
 		"PONTO",
 		"\"fimprog\"",
 		"\"declare\"",
@@ -681,42 +679,42 @@ public ProjetoParser(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 1610781824L, 0L};
+		long[] data = { 3221563648L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { 1610781696L, 0L};
+		long[] data = { 3221563392L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 64L, 0L};
+		long[] data = { 128L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 1612878912L, 0L};
+		long[] data = { 3225757824L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 16384L, 0L};
+		long[] data = { 32768L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 278560L, 0L};
+		long[] data = { 557120L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
 	private static final long[] mk_tokenSet_7() {
-		long[] data = { 402931744L, 0L};
+		long[] data = { 805863488L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
 	private static final long[] mk_tokenSet_8() {
-		long[] data = { 503595040L, 0L};
+		long[] data = { 1007190080L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
