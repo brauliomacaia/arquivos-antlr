@@ -12,7 +12,7 @@ se (a > b) entao
 }
 senao
 {
-   c := a - b.
+   c := a - r.
    escreva(c).
 }
 

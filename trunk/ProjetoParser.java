@@ -545,18 +545,6 @@ public ProjetoParser(ParserSharedInputState state) {
 			case NUM:
 			{
 				match(NUM);
-				
-								if(id1 == null){
-									String nome = (LT(0).getText());
-									id1 = ts.busca(nome);
-								}else{
-									String nome = LT(0).getText();
-									id2 = ts.busca(nome);
-									if(id1.getTipo() != id2.getTipo())
-										System.out.println("Variaveis de tipos diferentes");
-										System.exit(0);
-								}
-							
 				break;
 			}
 			case ID:
@@ -569,9 +557,10 @@ public ProjetoParser(ParserSharedInputState state) {
 								}else{
 									String nome = LT(0).getText();
 									id2 = ts.busca(nome);
-									if(id1.getTipo() != id2.getTipo())
+									if(id1.getTipo() != id2.getTipo()){
 										System.out.println("Variaveis de tipos diferentes");
 										System.exit(0);
+									}
 								}
 							
 				break;
