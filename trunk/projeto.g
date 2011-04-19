@@ -16,6 +16,7 @@ prog	:	{NumeroLinha.NLINHA=0;}"programa"
 			}
 			NOME
 			{
+				gc.setNomeDoArquivo(LT(0).getText());
 				gc.add(LT(0).getText() + " { \npublic static void main(String args[]){\nScanner _xretf = new Scanner(System.in);\n");
 			}
 		    PONTO 

@@ -59,6 +59,7 @@ public ProjetoParser(ParserSharedInputState state) {
 						
 			match(NOME);
 			
+							gc.setNomeDoArquivo(LT(0).getText());
 							gc.add(LT(0).getText() + " { \npublic static void main(String args[]){\nScanner _xretf = new Scanner(System.in);\n");
 						
 			match(PONTO);
