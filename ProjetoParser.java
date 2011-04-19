@@ -350,7 +350,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				match(ID);
 				
 								s = new Simbolo(LT(0).getText(), 0);
-								System.out.prinln(s.getNome());
+								System.out.println(s.getNome());
 							
 				break;
 			}
@@ -359,7 +359,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				match(TEXTO);
 				
 								s = new Simbolo(LT(0).getText(), 0);
-								System.out.prinln(s.getNome());
+								System.out.println(s.getNome());
 							
 				break;
 			}
@@ -419,6 +419,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			case PAR2:
 			case OP_REL:
 			case MENOS:
+			case Par2:
 			{
 				{
 				switch ( LA(1)) {
@@ -432,6 +433,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				case PONTO:
 				case PAR2:
 				case OP_REL:
+				case Par2:
 				{
 					break;
 				}
@@ -506,6 +508,7 @@ public ProjetoParser(ParserSharedInputState state) {
 			case DIVIDIR:
 			case MAIS:
 			case MENOS:
+			case Par2:
 			{
 				{
 				switch ( LA(1)) {
@@ -520,6 +523,7 @@ public ProjetoParser(ParserSharedInputState state) {
 				case OP_REL:
 				case MAIS:
 				case MENOS:
+				case Par2:
 				{
 					break;
 				}
@@ -578,6 +582,40 @@ public ProjetoParser(ParserSharedInputState state) {
 		}
 	}
 	
+	public final void cmdwhile() throws RecognitionException, TokenStreamException {
+		
+		
+		try {      // for error handling
+			match(LITERAL_enquanto);
+			match(PAR1);
+			expr();
+			match(OP_REL);
+			expr();
+			match(Par2);
+			match(CHAVE1);
+			{
+			int _cnt36=0;
+			_loop36:
+			do {
+				if ((LA(1)==CMD)) {
+					match(CMD);
+					match(PONTO);
+				}
+				else {
+					if ( _cnt36>=1 ) { break _loop36; } else {throw new NoViableAltException(LT(1), getFilename());}
+				}
+				
+				_cnt36++;
+			} while (true);
+			}
+			match(CHAVE2);
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_0);
+		}
+	}
+	
 	
 	public static final String[] _tokenNames = {
 		"<0>",
@@ -612,6 +650,7 @@ public ProjetoParser(ParserSharedInputState state) {
 		"\"faca\"",
 		"CMD",
 		"\"enquanto\"",
+		"Par2",
 		"WS",
 		"NL"
 	};
@@ -647,17 +686,17 @@ public ProjetoParser(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 278560L, 0L};
+		long[] data = { 4295245856L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
 	private static final long[] mk_tokenSet_7() {
-		long[] data = { 402931744L, 0L};
+		long[] data = { 4697899040L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
 	private static final long[] mk_tokenSet_8() {
-		long[] data = { 503595040L, 0L};
+		long[] data = { 4798562336L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());

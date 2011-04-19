@@ -28,5 +28,6 @@ MENOS=28
 LITERAL_faca="faca"=29
 CMD=30
 LITERAL_enquanto="enquanto"=31
-WS=32
-NL=33
+Par2=32
+WS=33
+NL=34

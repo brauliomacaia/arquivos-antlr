@@ -31,6 +31,7 @@ public interface ProjetoParserTokenTypes {
 	int LITERAL_faca = 29;
 	int CMD = 30;
 	int LITERAL_enquanto = 31;
-	int WS = 32;
-	int NL = 33;
+	int Par2 = 32;
+	int WS = 33;
+	int NL = 34;
 }

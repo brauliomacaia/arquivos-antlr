@@ -77,12 +77,12 @@ cmdescrita	:	"escreva" PAR1 escreve PAR2 PONTO
 escreve	:	ID 
 			{
 				s = new Simbolo(LT(0).getText(), 0);
-				System.out.prinln(s.getNome());
+				System.out.println(s.getNome());
 			}
 		| TEXTO
 			{
 				s = new Simbolo(LT(0).getText(), 0);
-				System.out.prinln(s.getNome());
+				System.out.println(s.getNome());
 			}
 		;
 
@@ -123,6 +123,13 @@ cmddo	:	"faca" CHAVE1
 			(CMD PONTO)+
 			CHAVE2 "enquanto" PAR1 expr OP_REL expr PAR2
 		;
+		
+		
+cmdwhile	:	"enquanto" PAR1 expr OP_REL expr Par2
+				CHAVE1
+					(CMD PONTO)+
+				CHAVE2
+			;
 		
 
 class ProjetoLexer extends Lexer;
