@@ -16,12 +16,12 @@ prog	:	{NumeroLinha.NLINHA=0;}"programa"
 			}
 			NOME
 			{
-				gc.add(LT(0).getText() + " { \nScanner _xretf = new Scanner(System.in);\n");
+				gc.add(LT(0).getText() + " { \npublic static void main(String args[]){\nScanner _xretf = new Scanner(System.in);\n");
 			}
 		    PONTO 
 			(declara)*
 			bloco
-			"fimprog" 
+			"fimprog" {gc.add(LT(0).getText());}
 			PONTO
 			{
 				gc.gerarCodigo();
@@ -111,7 +111,7 @@ cmdif	:	"se" {gc.add(LT(0).getText());}
 			"entao"
 			CHAVE1 {gc.add(LT(0).getText()+ "\n");} (cmd)+ CHAVE2 {gc.add(LT(0).getText());}
 			("senao" {gc.add(LT(0).getText());}
-			CHAVE1 {gc.add(LT(0).getText()+"\n");} (cmd)+ CHAVE2 {gc.add(LT(0).getText());})?
+			CHAVE1 {gc.add(LT(0).getText()+"\n");} (cmd)+ CHAVE2 {gc.add(LT(0).getText() + "\n");})?
 		;
 
 cmdexpr	:	ID {gc.add(LT(0).getText());} IGUAL {gc.add(LT(0).getText());} expr PONTO {gc.add(LT(0).getText());}
@@ -157,12 +157,12 @@ expr_l	:	(MAIS {gc.add(LT(0).getText());} termo expr_l)
 
 cmddo	:	"faca" {gc.add(LT(0).getText());} CHAVE1 {gc.add(LT(0).getText()+"\n");}
 			(cmd)+
-			CHAVE2 {gc.add(LT(0).getText());} "enquanto" {gc.add(LT(0).getText());} PAR1 {gc.add(LT(0).getText());} expr OP_REL {gc.add(LT(0).getText());} expr {gc.add(LT(0).getText());} PAR2 {gc.add(LT(0).getText());} PONTO
+			CHAVE2 {gc.add(LT(0).getText());} "enquanto" {gc.add(LT(0).getText());} PAR1 {gc.add(LT(0).getText());} expr OP_REL {gc.add(LT(0).getText());} expr PAR2 {gc.add(LT(0).getText() + "\n");} PONTO
 		;
 		
 		
 cmdwhile	:	"enquanto" {gc.add(LT(0).getText());} PAR1 {gc.add(LT(0).getText());} expr OP_REL {gc.add(LT(0).getText());} expr PAR2 {gc.add(LT(0).getText() + "\n");}
-				CHAVE1 {gc.add(LT(0).getText());}
+				CHAVE1 {gc.add(LT(0).getText() + "\n");}
 					(cmd)+
 				CHAVE2 {gc.add(LT(0).getText());}
 			;

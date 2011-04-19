@@ -1,29 +1,14 @@
-programa TESTE.
+programa CODIGOJAVA.
 declare int a, b, c.
 declare string r.
 
 leia(a).
 leia(b).
 
-se (a > b) entao
-{
    c := 9.
    escreva(c).
-}
-senao
-{
+
    c := a - b.
    escreva(c).
-}
-
-faca
-{
-	a := 3.
-}enquanto(a == 2).
-
-enquanto(a == 2)
-{
-	a := 3.
-}
 
 fimprog.
