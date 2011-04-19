@@ -1,0 +1,22 @@
+public class TESTE { 
+Scanner _xretf = new Scanner(System.in);
+int a, b, c;
+String r;
+a = _xretf.nextInt();
+b = _xretf.nextInt();
+if (a>b)
+{
+c = 9;
+System.out.println(c);
+}else
+{
+c = a-b;
+System.out.println(c);
+}do{
+a = 3;
+} while(a==22)
+
+while(a==2)
+{
+a = 3;
+}
