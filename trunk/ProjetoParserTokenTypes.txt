@@ -26,8 +26,6 @@ DIVIDIR=26
 MAIS=27
 MENOS=28
 LITERAL_faca="faca"=29
-CMD=30
-LITERAL_enquanto="enquanto"=31
-Par2=32
-WS=33
-NL=34
+LITERAL_enquanto="enquanto"=30
+WS=31
+NL=32
