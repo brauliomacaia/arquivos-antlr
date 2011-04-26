@@ -295,6 +295,10 @@ public ProjetoParser(ParserSharedInputState state) {
 		try {      // for error handling
 			match(ID);
 			gc.add(LT(0).getText());
+								s = ts.busca(LT(0).getText());
+								System.out.println(LT(0).getText());
+								s.setAtribuida(true);
+							
 			match(IGUAL);
 			gc.add(LT(0).getText());
 			expr();
@@ -480,6 +484,11 @@ public ProjetoParser(ParserSharedInputState state) {
 			{
 				match(ID);
 								
+								s = ts.busca(LT(0).getText());
+									if(!s.getAtribuida()){
+										System.err.println("Erro: variavel '" + s.getNome() + "' nao inicializada");
+										System.exit(0);
+								}
 								gc.add(LT(0).getText());				
 							
 				break;

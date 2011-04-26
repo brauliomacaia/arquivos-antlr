@@ -5,6 +5,7 @@ declare string r.
 leia(a).
 leia(b).
 
+   escreva(c);
    c := 9.
    escreva(c).
 
