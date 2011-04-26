@@ -99,6 +99,11 @@ cmdescrita	:	"escreva" {gc.add(LT(0).getText());} PAR1 {gc.add(LT(0).getText());
 
 escreve	:	ID 
 			{				
+				s = ts.busca(LT(0).getText());
+					if(!s.getAtribuida()){
+						System.err.println("Erro: variavel '" + s.getNome() + "' nao inicializada");
+						System.exit(0);
+				}
 				gc.add(LT(0).getText());				
 			}
 			| TEXTO
@@ -115,7 +120,11 @@ cmdif	:	"se" {gc.add(LT(0).getText());}
 			CHAVE1 {gc.add(LT(0).getText()+"\n");} (cmd)+ CHAVE2 {gc.add(LT(0).getText() + "\n");})?
 		;
 
-cmdexpr	:	ID {gc.add(LT(0).getText());} IGUAL {gc.add(LT(0).getText());} expr PONTO {gc.add(LT(0).getText());}
+cmdexpr	:	ID {gc.add(LT(0).getText());
+					s = ts.busca(LT(0).getText());
+					System.out.println(LT(0).getText());
+					s.setAtribuida(true);
+				} IGUAL {gc.add(LT(0).getText());} expr PONTO {gc.add(LT(0).getText());}
 		;
 
 expr	:	termo expr_l
@@ -229,6 +238,6 @@ PONTO	:	'.'
 WS      : (' ' | '\t') {$setType(Token.SKIP);}
         ;
 		
-NL      : ('\n' | "\n\r" | "\r\n") {$setType(Token.SKIP); System.out.println("Linha:" + ++NumeroLinha.NLINHA);}
+NL      : ('\n' | "\n\r" | "\r\n") {$setType(Token.SKIP); }
         ;
 

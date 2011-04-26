@@ -5,8 +5,9 @@ public class Simbolo
    
    private String nome;
    private int    tipo;
-   int valorInt = 0;
-   String valorStr = null;
+   
+   boolean atribuida = false;
+   
    
    public Simbolo()
    {
@@ -27,19 +28,13 @@ public class Simbolo
    {
       this.tipo = tipo;
    }
-   public void setValor(int valor){
-		this.valorInt = valor;
-   }
-   public void setValor(String valor){
-		this.valorStr = valor;
-   }
-   public int getValorInt(){
-		return valorInt;
-   }
-   public String getValorStr(){
-		return valorStr;
-   }
    
+   public void setAtribuida(boolean atribuida){
+		this.atribuida = atribuida;
+   }
+   public boolean getAtribuida(){
+		return atribuida;
+   }
    public String getNome() {return nome;}
    public int    getTipo() {return tipo;}
    
